@@ -5,8 +5,8 @@ pipeline {
     
     stage('Build Image') {
       steps {
-      sh "docker build -t PriyankaPantangi/request-logger:${env.BUILD_ID} -f Dockerfile-multi ."
-      sh "docker tag PriyankaPantangi/request-logger:${env.BUILD_ID} PriyankaPantangi/request-logger:latest"
+      sh "docker build -t priyankaguptap/request-logger:${env.BUILD_ID} -f Dockerfile-multi ."
+      sh "docker tag priyankaguptap/request-logger:${env.BUILD_ID} priyankaguptap/request-logger:latest"
       }
     }
     
@@ -16,8 +16,8 @@ pipeline {
     success {
       withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-        sh "docker push PriyankaPantangi/request-logger:${env.BUILD_ID}"
-        sh "docker push PriyankaPantangi/request-logger:latest"
+        sh "docker push priyankaguptap/request-logger:${env.BUILD_ID}"
+        sh "docker push priyankaguptap/request-logger:latest"
       }
     }
   }
